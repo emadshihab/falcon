@@ -187,8 +187,6 @@ setup1(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
     ],
     keywords='wsgi web api framework rest http cloud',
     author='Kurt Griffiths',
