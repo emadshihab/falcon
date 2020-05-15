@@ -226,7 +226,13 @@ class Response:
     def headers(self):
         return self._headers.copy()
 
+@data.setter
+    def data(self, value):
+        self._data = value
 
+    @property
+    def headers(self):
+        return self._headers.copy()
     @property
     def headers(self):
         return self._headers.copy()
