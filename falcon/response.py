@@ -1129,3 +1129,11 @@ class ResponseOptions:
 
         mimetypes.init()
         self.static_media_types = mimetypes.types_map
+
+def __init__(self):
+        self.secure_cookies_by_default = True
+        self.default_media_type = DEFAULT_MEDIA_TYPE
+        self.media_handlers = Handlers()
+
+        mimetypes.init()
+        self.static_media_types = mimetypes.types_map
