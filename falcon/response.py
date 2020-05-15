@@ -226,6 +226,12 @@ class Response:
     def headers(self):
         return self._headers.copy()
 
+
+    @property
+    def headers(self):
+        return self._headers.copy()
+
+
     @property
     def media(self):
         return self._media
@@ -1013,6 +1019,73 @@ class Response:
                       for c in self._cookies.values()]
         return items
 
+accept_ranges = header_property(
+        'Accept-Ranges',
+        """Set the Accept-Ranges header.
+
+        The Accept-Ranges header field indicates to the client which
+        range units are supported (e.g. "bytes") for the target
+        resource.
+
+        If range requests are not supported for the target resource,
+        the header may be set to "none" to advise the client not to
+        attempt any such requests.
+
+        Note:
+            "none" is the literal string, not Python's built-in ``None``
+            type.
+
+        """)
+
+    def _set_media_type(self, media_type=None):
+        """Wrapper around set_header to set a content-type.
+
+        Args:
+            media_type: Media type to use for the Content-Type
+                header.
+
+        """
+
+        # PERF(kgriffs): Using "in" like this is faster than dict.setdefault()
+        #   in most cases, except on PyPy where it is only a fraction of a
+        #   nanosecond slower. Last tested on Python versions 3.5-3.7.
+        if media_type is not None and 'content-type' not in self._headers:
+            self._headers['content-type'] = media_type
+
+    def _wsgi_headers(self, media_type=None):
+        """Convert headers into the format expected by WSGI servers.
+
+        Args:
+            media_type: Default media type to use for the Content-Type
+                header if the header was not set explicitly (default ``None``).
+
+        """
+
+        headers = self._headers
+        # PERF(vytas): uglier inline version of Response._set_media_type
+        if media_type is not None and 'content-type' not in headers:
+            headers['content-type'] = media_type
+
+        items = list(headers.items())
+
+        if self._extra_headers:
+            items += self._extra_headers
+
+        # NOTE(kgriffs): It is important to append these after self._extra_headers
+        #   in case the latter contains Set-Cookie headers that should be
+        #   overridden by a call to unset_cookie().
+        if self._cookies is not None:
+            # PERF(tbug):
+            # The below implementation is ~23% faster than
+            # the alternative:
+            #
+            #     self._cookies.output().split("\\r\\n")
+            #
+            # Even without the .split("\\r\\n"), the below
+            # is still ~17% faster, so don't use .output()
+            items += [('set-cookie', c.OutputString())
+                      for c in self._cookies.values()]
+        return items
 
 class ResponseOptions:
     """Defines a set of configurable response options.
