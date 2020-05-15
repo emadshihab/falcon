@@ -282,7 +282,7 @@ class Response:
                 Content-Length header in the response.
         """
 
-    
+        self.stream = stream
 
         # PERF(kgriffs): Set directly rather than incur the overhead of
         #   the self.content_length property.
