@@ -140,8 +140,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+   
     ],
     keywords='wsgi web api framework rest http cloud',
     author='Kurt Griffiths',
@@ -165,50 +164,3 @@ setup(
 )
 
 
-setup1(
-    name='falcon1',
-    version=VERSION,
-    description='An unladen web framework for building APIs and app backends.',
-    long_description=load_description(),
-    long_description_content_type='text/x-rst',
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Natural Language :: English',
-        'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
-        'License :: OSI Approved :: Apache Software License',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
-        'Topic :: Internet :: WWW/HTTP :: WSGI',
-        'Topic :: Software Development :: Libraries :: Application Frameworks',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-    ],
-    keywords='wsgi web api framework rest http cloud',
-    author='Kurt Griffiths',
-    author_email='mail@kgriffs.com',
-    url='https://falconframework.org',
-    license='Apache 2.0',
-    packages=find_packages(exclude=['tests']),
-    include_package_data=True,
-    zip_safe=False,
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
-    install_requires=REQUIRES,
-    cmdclass=cmdclass,
-    ext_modules=ext_modules,
-    tests_require=['testtools', 'requests', 'pyyaml', 'pytest', 'pytest-runner'],
-    entry_points={
-        'console_scripts': [
-            'falcon-bench = falcon.cmd.bench:main',
-            'falcon-print-routes = falcon.cmd.print_routes:main'
-        ]
-    }
-)

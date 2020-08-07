@@ -57,3 +57,14 @@ def test_traverse():
 
     route = output.getvalue().strip()
     assert '-> /test' == route
+
+
+def test_traverse():
+    """Ensure traverse() finds the proper routes."""
+    output = io.StringIO()
+    with redirected(stdout=output):
+        print_routes.traverse(_api._router._roots, verbose=False)
+
+    route = output.getvalue().strip()
+    assert '-> /test' == route
+    
