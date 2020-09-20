@@ -31,5 +31,14 @@ def main():
         fail(1, e)
 
 
+def main():
+    try:
+        bench.main()
+    except KeyboardInterrupt:
+        fail(1, 'Interrupted, terminating benchmark')
+    except RuntimeError as e:
+        fail(1, e)
+
+
 if __name__ == '__main__':
     main()
