@@ -457,3 +457,7 @@ def test_decorable_name_pattern():
     resource = PiggybackingCollection()
     assert resource.on_head_() == 'I shall not be decorated.'
     assert resource.on_header() == 'I shall not be decorated.'
+
+
+
+
